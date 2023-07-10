@@ -24,7 +24,7 @@ export default function Admin({ children }) {
         };
     }, []);
     return (
-        <div className="">
+        <div className="max-w-full h-screen overflow-x-hidden ">
             {/* Header */}
             <div className="fixed top-0 left-0 w-full bg-slate-950">
                 <div className="flex justify-between items-center text-white  px-4">
@@ -47,12 +47,9 @@ export default function Admin({ children }) {
                                 menuOpen
                                     ? "translate-y-2"
                                     : "-translate-y-6 collapse ",
-                                "absolute rounded-md w-[80px] bg-slate-800 top-10 right-0 px-3 transition-all duration-200"
+                                "absolute z-[9999] rounded-md w-[80px] bg-slate-800 top-10 right-0 px-3 transition-all duration-200"
                             )}
                         >
-                            <Link className="block my-1 border-b">
-                                Setting Profile
-                            </Link>
                             <Link className="block my-1">LOGOUT</Link>
                         </div>
                     </div>
@@ -68,7 +65,7 @@ export default function Admin({ children }) {
                             route().current("dashboard")
                                 ? "text-slate-900 py-2 bg-white "
                                 : "text-red-500",
-                            "flex flex-col items-center font-bold"
+                            "flex flex-col items-center font-bold px-4"
                         )}
                     >
                         <ComputerIcon color="inherit" />
@@ -80,11 +77,11 @@ export default function Admin({ children }) {
                             route().current("fakultas")
                                 ? "text-slate-900 py-2 bg-white "
                                 : "text-red-500",
-                            "flex flex-col items-center font-bold"
+                            "flex flex-col items-center font-bold px-4"
                         )}
                     >
                         <ComputerIcon color="inherit" />
-                        <p>fakultas</p>
+                        <p>Fakultas</p>
                     </Link>
                     <Link
                         href={route("prodi")}
@@ -92,11 +89,11 @@ export default function Admin({ children }) {
                             route().current("prodi")
                                 ? "text-slate-900 py-2 bg-white "
                                 : "text-red-500",
-                            "flex flex-col items-center font-bold"
+                            "flex flex-col items-center font-bold px-4"
                         )}
                     >
                         <ComputerIcon color="inherit" />
-                        <p>prodi</p>
+                        <p>Prodi</p>
                     </Link>
                     <Link
                         href={route("mahasiswa")}
@@ -104,23 +101,11 @@ export default function Admin({ children }) {
                             route().current("mahasiswa")
                                 ? "text-slate-900 py-2 bg-white "
                                 : "text-red-500",
-                            "flex flex-col items-center font-bold"
+                            "flex flex-col items-center font-bold px-4"
                         )}
                     >
                         <ComputerIcon color="inherit" />
-                        <p>mahasiswa</p>
-                    </Link>
-                    <Link
-                        href={route("user")}
-                        className={clsx(
-                            route().current("user")
-                                ? "text-slate-900 py-2 bg-white "
-                                : "text-red-500",
-                            "flex flex-col items-center font-bold"
-                        )}
-                    >
-                        <ComputerIcon color="inherit" />
-                        <p>user</p>
+                        <p>Penerima KIP</p>
                     </Link>
                 </div>
             </div>

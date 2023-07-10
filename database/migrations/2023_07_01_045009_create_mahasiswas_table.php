@@ -14,15 +14,21 @@ return new class extends Migration
         Schema::create('mahasiswas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('prodi_id');
-            $table->string('nim');
+            $table->string("kode_login")->unique();
+            $table->string('nim')->unique();
             $table->string('nama');
-            $table->string('jenis_kelamin');
-            $table->string('tempat_lahir');
-            $table->string('telp')->unique();
+            $table->string('jenis_kelamin')->nullable();
+            $table->string('tempat_lahir')->nullable();
+            $table->string('telp')->unique()->nullable();
             $table->string('email')->nullable()->unique();
-            $table->date('tanggal_lahir');
+            $table->date('tanggal_lahir')->nullable();
             $table->foreign('prodi_id')->references('id')
             ->on('prodis')->onDelete('cascade')->onUpdate('restrict');
+            $table->string('nama_ayah')->nullable()->unique();
+            $table->string('nama_ibu')->nullable()->unique();
+            $table->text('alamat')->nullable()->unique();
+            $table->string('ipk')->nullable()->unique();
+            $table->string('foto')->default('./img/defalt_user.jpg');
             $table->timestamps();
         });
     }

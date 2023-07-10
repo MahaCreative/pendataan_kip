@@ -7,7 +7,7 @@ import Admin from "@/Layouts/Admin";
 import React, { useState } from "react";
 import Form from "./Form";
 import { router } from "@inertiajs/react";
-
+import { motion } from "framer-motion";
 export default function index(props) {
     const fakultas = props.fak;
     const [model, setModel] = useState(null);
@@ -32,7 +32,12 @@ export default function index(props) {
         });
     };
     return (
-        <div className="px-4">
+        <motion.div
+            className="px-4 max-w-full overflow-x-hidden"
+            initial={{ x: "100%", opacity: 0 }}
+            animate={{ x: "0%", opacity: 1 }}
+            transition={{ duration: 0.5 }}
+        >
             <Modal show={tambahModal} onClose={setTambahModal}>
                 <div>
                     <h3 className="mx-4 text-blue-500 ">
@@ -113,7 +118,7 @@ export default function index(props) {
                     )}
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 }
 index.layout = (page) => <Admin children={page} />;

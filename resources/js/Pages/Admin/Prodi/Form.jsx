@@ -1,8 +1,8 @@
 import InputError from "@/Components/InputError";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
-import { useForm, usePage } from "@inertiajs/react";
-import React from "react";
+import { router, useForm, usePage } from "@inertiajs/react";
+import React, { useEffect } from "react";
 
 export default function Form({ model, setModal }) {
     const { fak } = usePage().props;
@@ -10,10 +10,32 @@ export default function Form({ model, setModal }) {
         id: "",
         prodi: "",
         fakultas_id: "",
+        logo: "",
     });
-    const submitHandler = (e) => {};
+    const submitHandler = (e) => {
+        e.preventDefault();
+        post(route("prodi"));
+    };
 
-    const updateHandler = (e) => {};
+    const updateHandler = (e) => {
+        e.preventDefault();
+        router.post(route("prodi"), {
+            _method: "patch",
+            data,
+            logo: data.logo,
+            onSuccess: () => setModal(false),
+        });
+    };
+
+    useEffect(() => {
+        setData({
+            ...data,
+            id: model ? model.id : "",
+            prodi: model ? model.prodi : "",
+            fakultas_id: model ? model.fakultas_id : "",
+            logo: model ? model.logo : "",
+        });
+    }, [model]);
     return (
         <div>
             <form
@@ -28,20 +50,36 @@ export default function Form({ model, setModal }) {
                                 [e.target.name]: e.target.value,
                             })
                         }
-                        value={data.fakultas}
-                        name="fakultas"
+                        value={data.prodi}
+                        name="prodi"
                         className="w-[90vw]"
-                        placeholder="Nama Fakultas"
+                        placeholder="Nama Program Studi"
                     />
                 </div>
-                {errors.fakultas && <InputError message={errors.fakultas} />}
+                {errors.prodi && <InputError message={errors.prodi} />}
                 <div className="w-full">
-                    <select className="capitalize w-[90vw] border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm ">
-                        <option value="">Pilih Fakultas</option>
+                    <select
+                        name="fakultas_id"
+                        onChange={(e) =>
+                            setData({
+                                ...data,
+                                [e.target.name]: e.target.value,
+                            })
+                        }
+                        className="capitalize w-[90vw] border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm "
+                    >
+                        <option
+                            value={model ? model.fakultas_id : "Pilih Fakultas"}
+                        >
+                            {model ? model.fakultas.fakultas : "Pilih Fakultas"}
+                        </option>
                         {fak.map((item, key) => (
                             <option value={item.id}>{item.fakultas}</option>
                         ))}
                     </select>
+                    {errors.fakultas_id && (
+                        <InputError message={errors.fakultas_id} />
+                    )}
                 </div>
                 <div className="w-full">
                     <label

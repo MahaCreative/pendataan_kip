@@ -3,11 +3,74 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class MahasiswaController extends Controller
 {
     public function index(Request $request){
-        return inertia('Admin/Mahasiswa/index');
+        $mahasiswa = Mahasiswa::with('prodi')->latest()->get();
+
+        return inertia('Admin/Mahasiswa/index', ['mahasiswa' => $mahasiswa]);
+    }
+
+    public function store(Request $request){
+
+        $request->validate([
+            'nama' => 'required|string',
+            'email' => 'required|email|unique:mahasiswas,email',
+            'jenis_kelamin' => 'required',
+            'prodi' => 'required',
+            'fakultas' => 'required',
+            'nim' => 'required|numeric|min:12|unique:mahasiswas,nim'
+        ]);
+        $kd_akses = rand(111111,999999);
+        $mahasiswa = Mahasiswa::create([
+            'kode_login' => $kd_akses,
+            'nim' => $request->nim,
+            'nama' => $request->nama,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'email' => $request->email,
+            'prodi_id' => $request->prodi
+        ]);
+        // return redirect()->route('send-akses-login')->with('mahasiswa',$mahasiswa);
+
+    }
+    
+
+    public function update(Request $request){
+
+        $request->validate([
+             'nama' => 'required|string',
+    'email' => [
+        'required',
+        'email',
+        Rule::unique('mahasiswas')->ignore($request->id),
+    ],
+        'jenis_kelamin' => 'required',
+        'prodi' => 'required',
+        'fakultas' => 'required',
+        'nim' => [
+            'required',
+            'numeric',
+            'min:12',
+            Rule::unique('mahasiswas')->ignore($request->id),
+        ],
+    ]);
+        $mahasiswa = Mahasiswa::findOrFail($request->id);
+        $mahasiswa->update([
+            'nim' => $request->nim,
+            'nama' => $request->nama,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'email' => $request->email,
+            'prodi_id' => $request->prodi
+        ]);
+    }
+
+    public function delete(Request $request){
+
+        $mahasiswa = Mahasiswa::findOrFail($request->id);
+        $mahasiswa->delete();
     }
 }
