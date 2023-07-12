@@ -13,6 +13,7 @@ export default function Form({ model, onClose }) {
         nim: "",
         nama: "",
         email: "",
+        angkatan:'',
         jenis_kelamin: "Laki-Laki",
         prodi: "1",
         fakultas: "",
@@ -36,6 +37,7 @@ export default function Form({ model, onClose }) {
             nim: model ? model.nim : "",
             nama: model ? model.nama : "",
             email: model ? model.email : "",
+            angkatan: model ? model.angkatan : "",
             jenis_kelamin: model ? model.jenis_kelamin : "Laki-Laki",
             prodi: model ? model.prodi_id : "1",
             fakultas: model ? model.fakultas : "",
@@ -79,7 +81,7 @@ export default function Form({ model, onClose }) {
                     {errors.nama && <InputError message={errors.nama} />}
                 </div>
                 <div className="w-full">
-                    <InputLabel>Nama Mahasiswa</InputLabel>
+                    <InputLabel>Email</InputLabel>
                     <TextInput
                         value={data.email}
                         onChange={changeHandler}
@@ -89,6 +91,19 @@ export default function Form({ model, onClose }) {
                         name="email"
                     />
                     {errors.email && <InputError message={errors.email} />}
+                </div>
+                <div className="w-full">
+                    <InputLabel>Angkatan</InputLabel>
+                    <TextInput
+                        value={data.angkatan}
+                        onChange={changeHandler}
+                        type="number"
+                        min="2010"
+                        className="w-full"
+                        placeholder="angkatan"
+                        name="angkatan"
+                    />
+                    {errors.angkatan && <InputError message={errors.angkatan} />}
                 </div>
                 <div className="w-full">
                     <InputLabel>Jenis Kelamin</InputLabel>

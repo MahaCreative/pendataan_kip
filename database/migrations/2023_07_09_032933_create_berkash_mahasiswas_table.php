@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('kip');
             $table->string('krs');
             $table->string('pddikti');
+            $table->string('status')->default('menunggu pengecekan');
+            $table->text('keterangan');
             $table->timestamps();
         });
     }

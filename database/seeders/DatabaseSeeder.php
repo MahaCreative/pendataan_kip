@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Mahasiswa;
+use Database\Factories\MahasiswaFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,5 +26,6 @@ class DatabaseSeeder extends Seeder
             FakultasSeeder::class,
             ProdiSeeder::class,
         ]);
+        Mahasiswa::factory(100)->create();
     }
 }

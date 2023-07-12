@@ -71,7 +71,7 @@ export default function index(props) {
                 </div>
             </Modal>
 
-            <div className="bg-slate-300 rounded-md w-[70vw] py-3 px-4">
+            <div className="bg-slate-300/50 backdrop-blur-sm rounded-md w-[70vw] py-3 px-4">
                 Halo <strong>Admin</strong>, Silahkan melakukan penambahan atau
                 perubahan data Fakultas pada halaman ini
             </div>
@@ -82,7 +82,7 @@ export default function index(props) {
             </div>
             <div className="my-2">
                 <h3 className="text-[8pt] ">Data Fakultas</h3>
-                <div className="bg-gray-100 max-h-[67vh] overflow-y-auto px-3 py-2 rounded-md">
+                <div className="bg-gray-100/50  backdrop-blur-sm max-h-[67vh] overflow-y-auto px-3 py-2 rounded-md">
                     {fakultas.length > 0 ? (
                         fakultas.map((item, key) => (
                             <div

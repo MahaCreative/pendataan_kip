@@ -10,7 +10,12 @@ class Fakultas extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function prodi(){
+    public function prodi()
+    {
         return $this->hasMany(Prodi::class);
+    }
+    public function mahasiswa()
+    {
+        return $this->hasMany(Mahasiswa::class);
     }
 }

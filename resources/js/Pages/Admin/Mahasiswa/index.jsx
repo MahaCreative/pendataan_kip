@@ -7,7 +7,7 @@ import Form from "./Form";
 import SecondaryButton from "@/Components/SecondaryButton";
 import DangerButton from "@/Components/DangerButton";
 import { router } from "@inertiajs/react";
-
+import { motion } from "framer-motion";
 export default function index({ mahasiswa }) {
     const [modalTambah, setModalTambah] = useState(false);
     const [modalEdit, setModalEdit] = useState(false);
@@ -29,7 +29,12 @@ export default function index({ mahasiswa }) {
         });
     };
     return (
-        <div className="px-2 py-4">
+        <motion.div
+            className="px-2 py-4"
+            initial={{ x: "100%", opacity: 0 }}
+            animate={{ x: "0%", opacity: 1 }}
+            transition={{ duration: 0.5 }}
+        >
             <Modal onClose={setModalDelete} show={modalDelete}>
                 <h3 className="mx-4 text-red-500 w-[95vw] border-b border-dashed border-red-500">
                     Warning!!!
@@ -72,12 +77,12 @@ export default function index({ mahasiswa }) {
                 </PrimaryButton>
                 <TextInput placeholder="Search" />
             </div>
-            <div>
+            <div className="max-h-[73vh] overflow-y-auto scrollbar-none">
                 {mahasiswa.length > 0 ? (
                     mahasiswa.map((item, key) => (
                         <div
                             key={key}
-                            className="my-6 relateive bg-gray-200 px-3 py-2 flex gap-4 capitalize items-center"
+                            className="my-6 relative bg-gray-200/50 backdrop-blur-sm px-3 py-2 flex gap-4 capitalize items-center"
                         >
                             <div>
                                 <img
@@ -96,9 +101,11 @@ export default function index({ mahasiswa }) {
                             </div>
                             <div className="absolute bottom-12 right-5">
                                 <div className="flex gap-2 items-center">
-                                    <SecondaryButton>
-                                        Lihat Berkas
-                                    </SecondaryButton>
+                                    {item.berkas && (
+                                        <SecondaryButton>
+                                            Lihat Berkas
+                                        </SecondaryButton>
+                                    )}
                                     <PrimaryButton
                                         onClick={() => editClick(item)}
                                     >
@@ -119,7 +126,7 @@ export default function index({ mahasiswa }) {
                     </div>
                 )}
             </div>
-        </div>
+        </motion.div>
     );
 }
 index.layout = (page) => <Admin children={page} />;

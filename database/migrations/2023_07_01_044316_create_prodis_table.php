@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('prodis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('fakultas_id')->references('id')
-            ->on('fakultas')->onDelete('cascade')->onUpdate('restrict');
+                ->on('fakultas')->onDelete('cascade')->onUpdate('restrict');
             $table->string('prodi');
-            $table->string('logo')->default('./img/logo.png');
+            $table->string('logo')->default('img/logo.png');
             $table->timestamps();
         });
     }

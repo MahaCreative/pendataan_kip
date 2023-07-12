@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\userController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SendAksesLoginController;
+use App\Http\Controllers\User\HomeController;
 use App\Models\Fakultas;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -46,4 +47,10 @@ Route::get('send-akses-login', [SendAksesLoginController::class, 'index'])->name
 
 
 Route::get('login', [LoginController::class, 'index'])->name('login');
-Route::post('login', [LoginController::class, 'store']);
+Route::post('login-admin', [LoginController::class, 'store_admin'])->name('login-admin');
+Route::post('login-user', [LoginController::class, 'store_user'])->name('login-user');
+
+
+// User
+
+Route::get('home', [HomeController::class, 'index'])->name('user.home');

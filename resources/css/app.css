@@ -1,10 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-html,
-h1,
-p,
-li,
-a {
-    font-size: 6pt;
+
+
+@layer base{
+    html,
+        h1,
+        p,
+        li,
+        a {
+            font-size: 8pt;
+            font-family: monospace;
+        }
 }

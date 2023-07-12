@@ -10,7 +10,18 @@ class Mahasiswa extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function prodi(){
+    public function prodi()
+    {
         return $this->belongsTo(Prodi::class);
+    }
+
+    public function fakultas()
+    {
+        return $this->belongsTo(Fakultas::class);
+    }
+
+    public function berkas()
+    {
+        return $this->hasOne(BerkashMahasiswa::class);
     }
 }
