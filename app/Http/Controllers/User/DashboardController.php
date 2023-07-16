@@ -10,6 +10,8 @@ class DashboardController extends Controller
     //
     public function index(Request $request)
     {
+        $cek_mahasiswa = $request->session()->get('mahasiswa');
+        // $cek_berkas
         return inertia('User/Dashboard/Dashboard');
     }
 }

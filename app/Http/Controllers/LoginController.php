@@ -15,10 +15,11 @@ class LoginController extends Controller
 
     public function store_admin(Request $request)
     {
+
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
             // Autentikasi berhasil
-            return redirect()->intended('/dashboard');
+            return redirect()->route('dashboard');
         }
 
         // Autentikasi gagal
@@ -36,12 +37,17 @@ class LoginController extends Controller
         ]);
 
         $cek = Mahasiswa::where('email', '=', $request->email)->where('nim', '=', $request->nim)->first();
+
+        if($cek  == null){
+            return redirect()->back()->withErrors([
+                'nim' => 'Mungkin anda belum terdaftar sebagai penerima KIP, atau mungkin Kode Akses anda salah',
+            ]);
+        }
         if ($cek->kode_login === $request->kode_akses) {
+
             $request->session()->put('mahasiswa', $cek);
             return redirect()->route('dashboard-user');
         }
-        return redirect()->back()->withErrors([
-            'nim' => 'Mungkin anda belum terdaftar sebagai penerima KIP, atau mungkin Kode Akses anda salah',
-        ]);
+
     }
 }

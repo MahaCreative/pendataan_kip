@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('krs');
             $table->string('pddikti');
             $table->string('status')->default('menunggu pengecekan');
-            $table->text('keterangan');
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }

@@ -9,6 +9,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SendAksesLoginController;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
+use App\Http\Controllers\User\DataDiriController;
 use App\Http\Controllers\User\HomeController;
 use App\Models\Fakultas;
 use Illuminate\Foundation\Application;
@@ -28,8 +29,9 @@ use Inertia\Inertia;
 |
 */
 
-Route::middleware(['auth', 'second'])->group(function () {
-    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa');
+Route::middleware(['auth'])->group(function () {
 
     Route::get('fakultas', [FakultasController::class, 'index'])->name('fakultas');
     Route::post('fakultas', [FakultasController::class, 'store']);
@@ -41,7 +43,6 @@ Route::middleware(['auth', 'second'])->group(function () {
     Route::patch('prodi', [ProdiController::class, 'update']);
     Route::delete('prodi', [ProdiController::class, 'delete']);
 
-    Route::get('mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa');
     Route::post('mahasiswa', [MahasiswaController::class, 'store']);
     Route::patch('mahasiswa', [MahasiswaController::class, 'update']);
     Route::post('mahasiswa-delete', [MahasiswaController::class, 'delete'])->name('mahasiswa-delete');
@@ -64,6 +65,11 @@ Route::get('logout', function (Request $request) {
 
         return redirect()->route('user.home');
     }
+
+    if($request->session()->get('mahasiswa')){
+        $request->session()->forget('mahasiswa');
+        return redirect()->route('user.home');
+    }
 })->name('logout');
 
 
@@ -71,3 +77,6 @@ Route::get('logout', function (Request $request) {
 
 Route::get('home', [HomeController::class, 'index'])->name('user.home');
 Route::get('dashboard-user', [UserDashboardController::class, 'index'])->name('dashboard-user');
+Route::post('upload-data-diri', [DataDiriController::class, 'upload_data_diri'])->name('upload_data_diri');
+Route::patch('upload-data-diri', [DataDiriController::class, 'update_upload_data_diri'])->name('upload_data_diri');
+Route::post('upload-berkas', [DataDiriController::class, 'upload_berkas'])->name('upload_berkas');

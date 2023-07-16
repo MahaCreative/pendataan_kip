@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             // $table->unsignedBigInteger('prodi_id');
             $table->foreignId('fakultas_id')->references('id')->on('fakultas')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('fakultas_id');
             $table->string("kode_login")->unique();
             $table->string('nim')->unique();
             $table->string('nama');
@@ -30,9 +29,12 @@ return new class extends Migration
                 ->on('prodis')->onDelete('cascade')->onUpdate('restrict');
             $table->string('nama_ayah')->nullable()->unique();
             $table->string('nama_ibu')->nullable()->unique();
+            $table->string('pekerjaan_ayah')->nullable()->unique();
+            $table->string('pekerjaan_ibu')->nullable()->unique();
             $table->text('alamat')->nullable()->unique();
             $table->string('ipk')->nullable()->unique();
             $table->string('foto')->default('img/defalt_user.jpg');
+            $table->string('status_data_diri')->default('belum lengkap');
             $table->timestamps();
         });
     }

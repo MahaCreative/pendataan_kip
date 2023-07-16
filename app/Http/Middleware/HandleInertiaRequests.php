@@ -36,6 +36,8 @@ class HandleInertiaRequests extends Middleware
         $perPro = Prodi::withCount('mahasiswa')->get();
         $dataFak = [];
         $dataPro = [];
+        $mahasiswa = session()->get('mahasiswa');
+
         foreach ($perFak as $fakultas) {
             $dataFak[] = [
                 'fakultas' => $fakultas->fakultas, // Ubah sesuai nama atribut yang sesuai di model Fakultas
@@ -57,6 +59,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+            'mahasiswa_login' => $mahasiswa,
             'fak' => $fak,
             'prodi' => $prodi,
             'dataPro' => $dataPro,
