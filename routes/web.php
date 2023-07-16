@@ -75,7 +75,7 @@ Route::get('logout', function (Request $request) {
 
 // User
 
-Route::get('home', [HomeController::class, 'index'])->name('user.home');
+Route::get('', [HomeController::class, 'index'])->name('user.home');
 Route::get('dashboard-user', [UserDashboardController::class, 'index'])->name('dashboard-user');
 Route::post('upload-data-diri', [DataDiriController::class, 'upload_data_diri'])->name('upload_data_diri');
 Route::patch('upload-data-diri', [DataDiriController::class, 'update_upload_data_diri'])->name('upload_data_diri');

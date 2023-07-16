@@ -1,6 +1,6 @@
 import DangerButton from "@/Components/DangerButton";
 import ImageUploadForm from "@/Components/ImageUploadForm";
-import InputError from "@/Components/InputError ";
+import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
@@ -153,7 +153,6 @@ export default function FormDataDiri({ model, setModel, setEdit }) {
                 <div className="py-1 flex flex-col gap-3 w-full">
                     <InputLabel className="text-white">Telp</InputLabel>
                     <PhoneInput
-                        value={data.telp}
                         value={data.telp}
                         onChange={changeTelp}
                         name="telp"
