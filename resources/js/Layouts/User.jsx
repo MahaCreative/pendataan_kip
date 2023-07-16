@@ -4,6 +4,7 @@ import React from "react";
 
 export default function User({ children }) {
     const { auth } = usePage().props;
+    console.log(auth.user);
     return (
         <div className="relative bg-slate-950 w-full h-screen">
             <div className="absolute left-0 w-full h-screen flex justify-center items-center">
@@ -46,7 +47,7 @@ export default function User({ children }) {
                             >
                                 Home
                             </Link>
-                            {auth.user && auth.user.length > 0 ? (
+                            {auth.user == null ? (
                                 <Link
                                     href={route("login")}
                                     className={clsx(

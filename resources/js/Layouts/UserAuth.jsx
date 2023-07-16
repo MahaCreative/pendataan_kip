@@ -3,9 +3,8 @@ import clsx from "clsx";
 import React, { useEffect, useRef, useState } from "react";
 import SchoolIcon from "@mui/icons-material/School";
 import ComputerIcon from "@mui/icons-material/Computer";
-import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
-import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
-export default function Admin({ children }) {
+
+export default function UserAuth({ children }) {
     const menuRef = useRef(null);
     const [menuOpen, setMenuOpen] = useState(false);
     console.log(route().current("dashboard"));
@@ -75,7 +74,7 @@ export default function Admin({ children }) {
                             </div>
                             <div className="relative top-16">{children}</div>
                             {/* Footer */}
-                            <div className="fixed bottom-0 left-0 w-full bg-slate-950">
+                            {/* <div className="fixed bottom-0 left-0 w-full bg-slate-950">
                                 <div className="flex justify-between px-4">
                                     <Link
                                         href={route("dashboard")}
@@ -126,7 +125,7 @@ export default function Admin({ children }) {
                                         <p>Penerima KIP</p>
                                     </Link>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

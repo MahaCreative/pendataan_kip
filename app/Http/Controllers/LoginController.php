@@ -37,7 +37,8 @@ class LoginController extends Controller
 
         $cek = Mahasiswa::where('email', '=', $request->email)->where('nim', '=', $request->nim)->first();
         if ($cek->kode_login === $request->kode_akses) {
-            dd('berhasil');
+            $request->session()->put('mahasiswa', $cek);
+            return redirect()->route('dashboard-user');
         }
         return redirect()->back()->withErrors([
             'nim' => 'Mungkin anda belum terdaftar sebagai penerima KIP, atau mungkin Kode Akses anda salah',
