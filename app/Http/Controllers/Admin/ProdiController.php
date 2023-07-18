@@ -25,6 +25,10 @@ class ProdiController extends Controller
             'prodi' => $request->prodi,
             'logo' => $url,
         ]);
+         return redirect()->back()->with([
+            'type' => 'success',
+            'message' => 'Berhasil menambahkan data'
+        ]);
     }
 
     public function update(Request $request){
@@ -35,11 +39,20 @@ class ProdiController extends Controller
             'prodi' => $request->data['prodi'],
             'logo' => $url,
         ]);
+         return redirect()->back()->with([
+            'type' => 'success',
+            'message' => 'Berhasil mengedit data'
+        ]);
     }
 
     public function delete(Request $request){
         // dd($request->all());
         $prod = Prodi::findOrFail($request->id);
         $prod->delete();
+         return redirect()->back()->with([
+            'type' => 'success',
+            'message' => 'Berhasil menghapus data'
+        ]);
     }
+    
 }

@@ -27,6 +27,10 @@ class FakultasController extends Controller
             'fakultas' => $request->fakultas,
             'logo' => $url
         ]);
+        return redirect()->back()->with([
+            'type' => 'success',
+            'message' => 'Berhasil menambahkan data'
+        ]);
 
     }
 
@@ -38,10 +42,18 @@ class FakultasController extends Controller
             'fakultas' => $request->data['fakultas'],
             'logo' => $url
         ]);
+         return redirect()->back()->with([
+            'type' => 'success',
+            'message' => 'Berhasil mengedit data'
+        ]);
     }
 
     public function delete(Request $request){
         $fak = Fakultas::findOrFail($request->id);
         $fak->delete();
+         return redirect()->back()->with([
+            'type' => 'success',
+            'message' => 'Berhasil menghapus data'
+        ]);
     }
 }

@@ -1,11 +1,16 @@
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import clsx from "clsx";
 import React, { useEffect, useRef, useState } from "react";
 import SchoolIcon from "@mui/icons-material/School";
 import ComputerIcon from "@mui/icons-material/Computer";
 import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
+import toast, { Toaster } from "react-hot-toast";
 export default function Admin({ children }) {
+    const { flash } = usePage().props;
+    useEffect(() => {
+        flash.type && toast[flash.type](flash.message);
+    });
     const menuRef = useRef(null);
     const [menuOpen, setMenuOpen] = useState(false);
     console.log(route().current("dashboard"));
@@ -25,6 +30,7 @@ export default function Admin({ children }) {
     }, []);
     return (
         <div className="max-w-full h-screen overflow-x-hidden ">
+            <Toaster />
             <div className="relative w-full h-screen bg-slate-950">
                 <div className="relative w-full h-full flex items-center justify-center">
                     <div className="absolute top-0 left-0 h-full w-full flex justify-center items-center">

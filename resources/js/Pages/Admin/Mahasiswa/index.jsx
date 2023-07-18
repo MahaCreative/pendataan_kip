@@ -8,10 +8,12 @@ import SecondaryButton from "@/Components/SecondaryButton";
 import DangerButton from "@/Components/DangerButton";
 import { router } from "@inertiajs/react";
 import { motion } from "framer-motion";
+import Berkas from "./Berkas";
 export default function index({ mahasiswa }) {
     const [modalTambah, setModalTambah] = useState(false);
     const [modalEdit, setModalEdit] = useState(false);
     const [modalDelete, setModalDelete] = useState(false);
+    const [modalLihat, setModalLihat] = useState(false);
     const [model, setModel] = useState(null);
     const editClick = (data) => {
         setModel(data);
@@ -27,6 +29,10 @@ export default function index({ mahasiswa }) {
             id: model.id,
             onSuccess: setModalDelete(false),
         });
+    };
+    const lihatClick = (data) => {
+        setModel(data);
+        setModalLihat(true);
     };
     return (
         <motion.div
@@ -49,6 +55,12 @@ export default function index({ mahasiswa }) {
                     <DangerButton onClick={() => setModalDelete(false)}>
                         Cancell
                     </DangerButton>
+                </div>
+            </Modal>
+            <Modal onClose={setModalLihat} show={modalLihat}>
+                <h3 className="mx-4 text-blue-500 ">Berkas Mahasiswa</h3>
+                <div className="mx-4 w-[95vw]">
+                    <Berkas model={model} />
                 </div>
             </Modal>
             <Modal onClose={setModalTambah} show={modalTambah}>
@@ -102,7 +114,9 @@ export default function index({ mahasiswa }) {
                             <div className="absolute bottom-12 right-5">
                                 <div className="flex gap-2 items-center">
                                     {item.berkas && (
-                                        <SecondaryButton>
+                                        <SecondaryButton
+                                            onClick={() => lihatClick(item)}
+                                        >
                                             Lihat Berkas
                                         </SecondaryButton>
                                     )}

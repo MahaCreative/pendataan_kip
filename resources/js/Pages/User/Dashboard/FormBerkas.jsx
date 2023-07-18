@@ -31,6 +31,7 @@ export default function FormBerkas({
     };
 
     useEffect(() => {
+        console.log(modelBerkas);
         setData({
             ...data,
             ktp: modelBerkas ? modelBerkas.ktp : "",

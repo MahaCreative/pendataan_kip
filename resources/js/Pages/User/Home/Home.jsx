@@ -34,7 +34,7 @@ export default function Home(props) {
     );
     useEffect(() => reload(params), [params]);
     return (
-        <div className="h-[100vh] overflow-y-auto">
+        <div className="h-[100vh] overflow-y-auto max-h-screen overflow-x-hidden">
             <DataJumlah />
             <div className="my-4 mx-4 px-4 bg-slate-950/50 backdrop-blur-sm py-2 rounded-md shadow-md shadow-white/30">
                 <h3 className="font-mono text-2xl font-bold">

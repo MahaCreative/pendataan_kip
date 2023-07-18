@@ -5,8 +5,9 @@ import FormDataDiri from "./FormDataDiri";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { motion } from "framer-motion";
 import FormBerkas from "./FormBerkas";
+import FormBerkasUpdate from "./FormBerkasUpdate";
 
-export default function Dashboard() {
+export default function Dashboard({ berkas }) {
     const { mahasiswa_login } = usePage().props;
     const [edit, setEdit] = useState(false);
     const [model, setModel] = useState(null);
@@ -14,6 +15,7 @@ export default function Dashboard() {
         setModel(mahasiswa_login);
         setEdit(true);
     };
+
     return (
         <div className="bg-slate-950 max-h-[90vh] overflow-y-auto scrollbar-none">
             {mahasiswa_login.status_data_diri == "belum lengkap" ? (
@@ -76,7 +78,23 @@ export default function Dashboard() {
             )}
             {mahasiswa_login.status_data_diri == "lengkap" ? (
                 <div className="max-h[2vh] overflow-y-auto scrollbar-none text-white p-4 rounded-lg m-4 flex gap-3 bg-slate-400/50 backdrop-blur-sm items-start text-2xl">
-                    <FormBerkas />
+                    {berkas ? (
+                        berkas.status == "disetujui" ? (
+                            <div>
+                                <p>
+                                    Berkas anda telah disetujui oleh petugas
+                                    kami. silahkan menunggu informasi
+                                    selanjutnya melalui telp anda
+                                </p>
+                            </div>
+                        ) : (
+                            <div>
+                                <FormBerkasUpdate modelBerkas={berkas} />
+                            </div>
+                        )
+                    ) : (
+                        <FormBerkas />
+                    )}
                 </div>
             ) : (
                 ""

@@ -40,7 +40,10 @@ class MahasiswaController extends Controller
             'fakultas_id' => $request->fakultas
         ]);
         // return redirect()->route('send-akses-login')->with('mahasiswa',$mahasiswa);
-
+         return redirect()->back()->with([
+            'type' => 'success',
+            'message' => 'Berhasil menambahkan data'
+        ]);
     }
 
 
@@ -74,6 +77,10 @@ class MahasiswaController extends Controller
             'email' => $request->email,
             'prodi_id' => $request->prodi
         ]);
+         return redirect()->back()->with([
+            'type' => 'success',
+            'message' => 'Berhasil mengedit data'
+        ]);
     }
 
     public function delete(Request $request)
@@ -81,5 +88,9 @@ class MahasiswaController extends Controller
 
         $mahasiswa = Mahasiswa::findOrFail($request->id);
         $mahasiswa->delete();
+         return redirect()->back()->with([
+            'type' => 'success',
+            'message' => 'Berhasil menghapus data'
+        ]);
     }
 }

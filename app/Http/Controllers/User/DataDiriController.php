@@ -75,15 +75,34 @@ class DataDiriController extends Controller
         $get = $request->session()->get('mahasiswa');
         $mahasiswa = Mahasiswa::findOrFail($get->id);
         $berkas = BerkashMahasiswa::create([
-            "ktp" =>  $request->file('ktp')->storeAs('img/'.$mahasiswa->nama.'/ktp/', $request->file('ktp')->getClientOriginalName()),
-            "kk" =>  $request->file('kk')->storeAs('img/'.$mahasiswa->nama.'/kk/', $request->file('kk')->getClientOriginalName()),
-            "kip" =>  $request->file('kip')->storeAs('img/'.$mahasiswa->nama.'/kip/', $request->file('kip')->getClientOriginalName()),
-            "krs" => $request->file('krs')->storeAs('img/'.$mahasiswa->nama.'/krs/', $request->file('krs')->getClientOriginalName()),
-            "pddikti" => $request->file('pddikti')->storeAs('img/'.$mahasiswa->nama.'/pddikti/', $request->file('pddikti')->getClientOriginalName()),
+            "ktp" =>  $request->file('ktp')->storeAs('file/berkas/'.$mahasiswa->nama.'/ktp', $request->file('ktp')->getClientOriginalName()),
+            "kk" =>  $request->file('kk')->storeAs('file/berkas/'.$mahasiswa->nama.'/kk', $request->file('kk')->getClientOriginalName()),
+            "kip" =>  $request->file('kip')->storeAs('file/berkas/'.$mahasiswa->nama.'/kip', $request->file('kip')->getClientOriginalName()),
+            "krs" => $request->file('krs')->storeAs('file/berkas/'.$mahasiswa->nama.'/krs', $request->file('krs')->getClientOriginalName()),
+            "pddikti" => $request->file('pddikti')->storeAs('file/berkas/'.$mahasiswa->nama.'/pddikti', $request->file('pddikti')->getClientOriginalName()),
             'mahasiswa_id' => $mahasiswa->id,
 
         ]);
-        dd($berkas);
+
+    }
+
+    public function update_berkas(Request $request){
+        $berkas = BerkashMahasiswa::findOrFail($request->id);
+        $get = $request->session()->get('mahasiswa');
+        $mahasiswa = Mahasiswa::findOrFail($get->id);
+
+
+        $berkas->update([
+            "ktp" => $request->file("ktp") ? $request->file('ktp')->storeAs('file/berkas/'.$mahasiswa->nama.'/ktp', $request->file('ktp')->getClientOriginalName()) : $request->ktp,
+            "kk" => $request->file("kk") ? $request->file('kk')->storeAs('file/berkas/'.$mahasiswa->nama.'/kk', $request->file('kk')->getClientOriginalName()) : $request->kk,
+            "kip" => $request->file("kip") ? $request->file('kip')->storeAs('file/berkas/'.$mahasiswa->nama.'/kip', $request->file('kip')->getClientOriginalName()) : $request->kip,
+            "krs" => $request->file("krs") ? $request->file('krs')->storeAs('file/berkas/'.$mahasiswa->nama.'/krs', $request->file('krs')->getClientOriginalName()) : $request->krs,
+            "pddikti" => $request->file("pddikti") ? $request->file('pddikti')->storeAs('file/berkas/'.$mahasiswa->nama.'/pddikti', $request->file('pddikti')->getClientOriginalName()) : $request->pddikti,
+        ]);
+        return redirect()->back()->with([
+            'type' => 'success',
+            'message' => 'Berhasil mengirim email informasi berkas ditolak ke mahasiswa'
+        ]);
     }
 
 }

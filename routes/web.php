@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\BerkasHandlerController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DownloadBerkas;
 use App\Http\Controllers\Admin\FakultasController;
 use App\Http\Controllers\Admin\MahasiswaController;
 use App\Http\Controllers\Admin\ProdiController;
@@ -51,6 +53,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('send-akses-login', [SendAksesLoginController::class, 'index'])->name('send-akses-login');
 });
 
+Route::get('download/{file}', [DownloadBerkas::class, 'download_berkas'])->name('download_berkas');
+Route::get('setujui-berkas-handler', [BerkasHandlerController::class, 'setujui_berkas'])->name('setujui_berkas');
+Route::post('tolak-berkas-handler', [BerkasHandlerController::class, 'tolak_berkas'])->name('tolak_berkas');
+
 Route::get('login', [LoginController::class, 'index'])->name('login');
 Route::post('login-admin', [LoginController::class, 'store_admin'])->name('login-admin');
 Route::post('login-user', [LoginController::class, 'store_user'])->name('login-user');
@@ -80,3 +86,4 @@ Route::get('dashboard-user', [UserDashboardController::class, 'index'])->name('d
 Route::post('upload-data-diri', [DataDiriController::class, 'upload_data_diri'])->name('upload_data_diri');
 Route::patch('upload-data-diri', [DataDiriController::class, 'update_upload_data_diri'])->name('upload_data_diri');
 Route::post('upload-berkas', [DataDiriController::class, 'upload_berkas'])->name('upload_berkas');
+Route::patch('update_berkas', [DataDiriController::class, 'update_berkas'])->name('update_berkas');
