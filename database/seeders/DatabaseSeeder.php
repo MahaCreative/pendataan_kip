@@ -22,10 +22,10 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
             'password' => bcrypt('password'),
         ]);
-        $this->call([
-            FakultasSeeder::class,
-            ProdiSeeder::class,
-        ]);
-        Mahasiswa::factory(100)->create();
+        // $this->call([
+        //     FakultasSeeder::class,
+        //     ProdiSeeder::class,
+        // ]);
+        // Mahasiswa::factory(100)->create();
     }
 }
