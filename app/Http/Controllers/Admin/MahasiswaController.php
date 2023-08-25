@@ -39,11 +39,11 @@ class MahasiswaController extends Controller
             'prodi_id' => $request->prodi,
             'fakultas_id' => $request->fakultas
         ]);
-        // return redirect()->route('send-akses-login')->with('mahasiswa',$mahasiswa);
-         return redirect()->back()->with([
+        return redirect()->route('send-akses-login')->with([
             'type' => 'success',
-            'message' => 'Berhasil menambahkan data'
-        ]);
+            'message' => 'Berhasil menambahkan data',
+            'mahasiswa' => $mahasiswa]);
+
     }
 
 

@@ -66,11 +66,11 @@ class DataDiriController extends Controller
 
     public function upload_berkas(Request $request){
         $request->validate([
-            "ktp" => 'required|mimes:pdf|size:2048',
-            "kk" => 'required|mimes:pdf|size:2048',
-            "kip" => 'required|mimes:pdf|size:2048',
-            "krs" => 'required|mimes:pdf|size:2048',
-            "pddikti" => 'required|mimes:pdf|size:2048',
+            "ktp" => 'required|mimes:pdf',
+            "kk" => 'required|mimes:pdf',
+            "kip" => 'required|mimes:pdf',
+            "krs" => 'required|mimes:pdf',
+            "pddikti" => 'required|mimes:pdf',
         ]);
         $get = $request->session()->get('mahasiswa');
         $mahasiswa = Mahasiswa::findOrFail($get->id);
@@ -82,6 +82,10 @@ class DataDiriController extends Controller
             "pddikti" => $request->file('pddikti')->storeAs('file/berkas/'.$mahasiswa->nama.'/pddikti', $request->file('pddikti')->getClientOriginalName()),
             'mahasiswa_id' => $mahasiswa->id,
 
+        ]);
+        return redirect()->back()->with([
+            'type' => 'success',
+            'message' => 'Berhasil Mengupload Data'
         ]);
 
     }
