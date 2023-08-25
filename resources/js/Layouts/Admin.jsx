@@ -66,12 +66,18 @@ export default function Admin({ children }) {
                                                 menuOpen
                                                     ? "translate-y-2"
                                                     : "-translate-y-6 collapse ",
-                                                "absolute z-[9999] rounded-md w-[80px] bg-slate-800 top-10 right-0 px-3 transition-all duration-200"
+                                                "absolute rounded-md w-[120px] bg-slate-800 top-12 right-0 px-3 transition-all duration-200"
                                             )}
                                         >
                                             <Link
+                                                href={route("setting-profile")}
+                                                className="block my-1 w-full hover:cursor-pointer"
+                                            >
+                                                Setting Profile
+                                            </Link>
+                                            <Link
                                                 href={route("logout")}
-                                                className="block my-1"
+                                                className="block my-1 w-full hover:cursor-pointer"
                                             >
                                                 LOGOUT
                                             </Link>
@@ -79,7 +85,9 @@ export default function Admin({ children }) {
                                     </div>
                                 </div>
                             </div>
-                            <div className="relative top-16">{children}</div>
+                            <div className="relative my-24 z-[99]">
+                                {children}
+                            </div>
                             {/* Footer */}
                             <div className="fixed bottom-0 left-0 w-full bg-slate-950">
                                 <div className="flex justify-between px-4">

@@ -8,8 +8,12 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $mahasiswa = $request->session()->get('mahasiswa');
+        if($mahasiswa){
+            return redirect()->route('dashboard-user');
+        }
         return inertia('User/Login/Login');
     }
 

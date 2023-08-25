@@ -9,12 +9,9 @@ import React, { useState } from "react";
 export default function Berkas({ model }) {
     const { data, setData, post, errors } = useForm({ keterangan: "" });
     const [modalTolak, setModalTolak] = useState(false);
-    const downloadKTP = (data) => {
+    const downloadKTP = (data, type) => {
         console.log(data);
-        window.open(
-            router.get(route("download_berkas", { file: data })),
-            "_blank"
-        );
+        window.open(route("download_berkas", { file: data, fileType: type }));
     };
 
     const terimaBerkas = (data) => {
@@ -80,7 +77,7 @@ export default function Berkas({ model }) {
                     <div className="flex gap-3 items-center my-2.5">
                         <div className="w-[20%]">KTP</div>
                         <PrimaryButton
-                            onClick={(e) => downloadKTP(model.berkas.ktp)}
+                            onClick={(e) => downloadKTP(model.berkas.id, "KTP")}
                             className="w-full"
                         >
                             Download Berkas
@@ -88,25 +85,39 @@ export default function Berkas({ model }) {
                     </div>
                     <div className="flex gap-3 items-center my-2.5">
                         <div className="w-[20%]">KK</div>
-                        <PrimaryButton className="w-full">
+                        <PrimaryButton
+                            onClick={(e) => downloadKTP(model.berkas.id, "KK")}
+                            className="w-full"
+                        >
                             Download Berkas
                         </PrimaryButton>
                     </div>
                     <div className="flex gap-3 items-center my-2.5">
                         <div className="w-[20%]">KIP</div>
-                        <PrimaryButton className="w-full">
+                        <PrimaryButton
+                            onClick={(e) => downloadKTP(model.berkas.id, "KIP")}
+                            className="w-full"
+                        >
                             Download Berkas
                         </PrimaryButton>
                     </div>
                     <div className="flex gap-3 items-center my-2.5">
                         <div className="w-[20%]">KRS</div>
-                        <PrimaryButton className="w-full">
+                        <PrimaryButton
+                            onClick={(e) => downloadKTP(model.berkas.id, "KRS")}
+                            className="w-full"
+                        >
                             Download Berkas
                         </PrimaryButton>
                     </div>
                     <div className="flex gap-3 items-center my-2.5">
                         <div className="w-[20%]">PDDIKTI</div>
-                        <PrimaryButton className="w-full">
+                        <PrimaryButton
+                            onClick={(e) =>
+                                downloadKTP(model.berkas.id, "PDDIKTI")
+                            }
+                            className="w-full"
+                        >
                             Download Berkas
                         </PrimaryButton>
                     </div>

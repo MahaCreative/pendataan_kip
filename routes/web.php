@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\userController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SendAksesLoginController;
+use App\Http\Controllers\SettingOperator;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
 use App\Http\Controllers\User\DataDiriController;
 use App\Http\Controllers\User\HomeController;
@@ -51,15 +52,19 @@ Route::middleware(['auth'])->group(function () {
 
     // Send Email
     Route::get('send-akses-login', [SendAksesLoginController::class, 'index'])->name('send-akses-login');
+    Route::get('setting-profile', [SettingOperator::class, 'index'])->name('setting-profile');
+    Route::patch('setting-profile', [SettingOperator::class, 'update']);
 });
 
-Route::get('download/{file}', [DownloadBerkas::class, 'download_berkas'])->name('download_berkas');
+Route::get('downloads/{file}/{fileType}', [DownloadBerkas::class, 'download_berkas'])->name('download_berkas');
 Route::get('setujui-berkas-handler', [BerkasHandlerController::class, 'setujui_berkas'])->name('setujui_berkas');
 Route::post('tolak-berkas-handler', [BerkasHandlerController::class, 'tolak_berkas'])->name('tolak_berkas');
+Route::middleware(['guest'])->group(function () {
+    Route::get('login', [LoginController::class, 'index'])->name('login');
+    Route::post('login-admin', [LoginController::class, 'store_admin'])->name('login-admin');
+    Route::post('login-user', [LoginController::class, 'store_user'])->name('login-user');
 
-Route::get('login', [LoginController::class, 'index'])->name('login');
-Route::post('login-admin', [LoginController::class, 'store_admin'])->name('login-admin');
-Route::post('login-user', [LoginController::class, 'store_user'])->name('login-user');
+});
 Route::get('logout', function (Request $request) {
 
     if ($request->user()) {
