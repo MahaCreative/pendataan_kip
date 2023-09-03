@@ -69,6 +69,7 @@ class MahasiswaController extends Controller
             'angkatan' => 'required|numeric'
         ]);
         $mahasiswa = Mahasiswa::findOrFail($request->id);
+        dd($mahasiswa);
         $mahasiswa->update([
             'nim' => $request->nim,
             'nama' => $request->nama,

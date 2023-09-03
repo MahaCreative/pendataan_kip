@@ -37,10 +37,11 @@ class LoginController extends Controller
         $request->validate([
             'email' => 'required|email',
             'nim' => 'required|numeric|min:12',
-            'kode_akses' => 'required|numeric|'
+            'kode_akses' => 'required|numeric'
         ]);
 
         $cek = Mahasiswa::where('email', '=', $request->email)->where('nim', '=', $request->nim)->first();
+        // dd($cek);
 
         if($cek  == null){
             return redirect()->back()->withErrors([
@@ -52,6 +53,11 @@ class LoginController extends Controller
             $request->session()->put('mahasiswa', $cek);
             return redirect()->route('dashboard-user');
         }
+
+        return redirect()->back()->with([
+            'type' => 'error',
+            'message' => 'Maaf kode anda salah, silahkan periksa email anda'
+        ]);
 
     }
 }
