@@ -6,15 +6,21 @@ import React, { useState } from "react";
 import Form from "./Form";
 import SecondaryButton from "@/Components/SecondaryButton";
 import DangerButton from "@/Components/DangerButton";
-import { router } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
 import { motion } from "framer-motion";
 import Berkas from "./Berkas";
+import InputLabel from "@/Components/InputLabel";
 export default function index({ mahasiswa }) {
+    const { fak } = usePage().props;
     const [modalTambah, setModalTambah] = useState(false);
+    const [jenisDownload, setJenisDownload] = useState("semua");
     const [modalEdit, setModalEdit] = useState(false);
     const [modalDelete, setModalDelete] = useState(false);
     const [modalLihat, setModalLihat] = useState(false);
+    const [modaldownload, setModalDownload] = useState(false);
     const [model, setModel] = useState(null);
+    const [dataAngkatan, setDataAngkatan] = useState("");
+    const [dataFakultas, setDataFakultas] = useState("");
     const editClick = (data) => {
         setModel(data);
         setModalEdit(true);
@@ -33,6 +39,81 @@ export default function index({ mahasiswa }) {
     const lihatClick = (data) => {
         setModel(data);
         setModalLihat(true);
+    };
+    const jenisDownloadHandler = (data) => {
+        if (data === "angkatan") {
+            setJenisDownload("angkatan");
+        } else if (data === "fakultas") {
+            setJenisDownload("fakultas");
+        }
+        console.log(data);
+    };
+    const semuaDownloadHandler = async (e) => {
+        e.preventDefault();
+        setJenisDownload("semua");
+        try {
+            const response = await fetch(
+                route("semua_download", { angkatan: dataAngkatan })
+            );
+            if (response.ok) {
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "Laporan_penerima_KIP_semua.pdf";
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+            } else {
+                console.error("Gagal mengunduh file PDF");
+            }
+        } catch (error) {
+            console.error("Terjadi kesalahan saat mengunduh file PDF:", error);
+        }
+    };
+    const angkatanDownloadHandler = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch(
+                route("angkatan_download", { angkatan: dataAngkatan })
+            );
+            if (response.ok) {
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "Laporan_penerima_KIP_Angkatan.pdf";
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+            } else {
+                console.error("Gagal mengunduh file PDF");
+            }
+        } catch (error) {
+            console.error("Terjadi kesalahan saat mengunduh file PDF:", error);
+        }
+    };
+    const fakultasDownloadHandler = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch(
+                route("fakultas_download", { fakultas: dataFakultas })
+            );
+            if (response.ok) {
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "Laporan_penerima_KIP_Fakultas.pdf";
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+            } else {
+                console.error("Gagal mengunduh file PDF");
+            }
+        } catch (error) {
+            console.error("Terjadi kesalahan saat mengunduh file PDF:", error);
+        }
     };
     return (
         <motion.div
@@ -63,6 +144,88 @@ export default function index({ mahasiswa }) {
                     <Berkas model={model} />
                 </div>
             </Modal>
+            <Modal onClose={setModalDownload} show={modaldownload}>
+                <h3 className="mx-4 text-blue-500 ">Download Laporan</h3>
+                <div className="mx-4 w-[95vw] py-8">
+                    <div className="flex gap-2 items-center px-8">
+                        <button
+                            onClick={semuaDownloadHandler}
+                            className="text-white p-2 rounded-md shadow bg-green-500"
+                        >
+                            Semua
+                        </button>
+                        <button
+                            onClick={() => jenisDownloadHandler("angkatan")}
+                            className="text-white p-2 rounded-md shadow bg-blue-500"
+                        >
+                            Angkatan
+                        </button>
+                        <button
+                            onClick={() => jenisDownloadHandler("fakultas")}
+                            className="text-white p-2 rounded-md shadow bg-red-500"
+                        >
+                            Fakultas
+                        </button>
+                    </div>
+                    <div className="px-8">
+                        {jenisDownload == "angkatan" ? (
+                            <>
+                                <form>
+                                    <p>
+                                        Isikan Kosong Jika Ingin Mendownload
+                                        Semua Angkatan
+                                    </p>
+                                    <InputLabel value={"Angkatan"} />
+                                    <TextInput
+                                        onChange={(e) =>
+                                            setDataAngkatan(e.target.value)
+                                        }
+                                        className="w-full"
+                                        name="angkatan"
+                                        type="number"
+                                    />
+                                    <button
+                                        onClick={angkatanDownloadHandler}
+                                        className="text-white p-2 rounded-md shadow bg-blue-500"
+                                    >
+                                        Download
+                                    </button>
+                                </form>
+                            </>
+                        ) : jenisDownload == "fakultas" ? (
+                            <form>
+                                <p>
+                                    Isikan Kosong Jika Ingin Mendownload Semua
+                                    Fakultas
+                                </p>
+                                <InputLabel value={"Fakultas"} />
+                                <select
+                                    onChange={(e) =>
+                                        setDataFakultas(e.target.value)
+                                    }
+                                    name="fakultas"
+                                    className="capitalize w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm "
+                                >
+                                    <option value="">Pilih Fakultas</option>
+                                    {fak.map((item, key) => (
+                                        <option key={key} value={item.id}>
+                                            {item.fakultas}
+                                        </option>
+                                    ))}
+                                </select>
+                                <button
+                                    onClick={fakultasDownloadHandler}
+                                    className="text-white p-2 rounded-md shadow bg-blue-500"
+                                >
+                                    Download
+                                </button>
+                            </form>
+                        ) : (
+                            "Fakultas"
+                        )}
+                    </div>
+                </div>
+            </Modal>
             <Modal onClose={setModalTambah} show={modalTambah}>
                 <h3 className="mx-4 text-blue-500 ">
                     Tambah Data Mahasiswa Penerima KIP
@@ -84,9 +247,14 @@ export default function index({ mahasiswa }) {
                 penerima KIP
             </div>
             <div className="my-2 flex justify-between items-center">
-                <PrimaryButton onClick={() => setModalTambah(true)}>
-                    Tambah
-                </PrimaryButton>
+                <div className="flex gap-2">
+                    <PrimaryButton onClick={() => setModalTambah(true)}>
+                        Tambah
+                    </PrimaryButton>
+                    <PrimaryButton onClick={() => setModalDownload(true)}>
+                        Download Laporan
+                    </PrimaryButton>
+                </div>
                 <TextInput placeholder="Search" />
             </div>
             <div className="max-h-[73vh] overflow-y-auto scrollbar-none">

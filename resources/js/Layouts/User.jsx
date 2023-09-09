@@ -31,12 +31,7 @@ export default function User({ children }) {
                                     alt=""
                                     className="w-[6vw]"
                                 />
-                                <img
-                                    loading="lazy"
-                                    src="./storage/img/fikom.png"
-                                    alt=""
-                                    className="w-[6vw]"
-                                />
+
                                 <h3 className="font-bold text-3xl font-mono">
                                     Universitas Tomakaka
                                 </h3>
@@ -54,17 +49,30 @@ export default function User({ children }) {
                                     Home
                                 </Link>
                                 {auth.user == null ? (
-                                    <Link
-                                        href={route("login")}
-                                        className={clsx(
-                                            route().current("login")
-                                                ? "text-slate-900 bg-white"
-                                                : "text-white",
-                                            "shadow-sm shadow-white/50 rounded-lg py-2 px-4 active:bg-white active:text-slate-950"
-                                        )}
-                                    >
-                                        Login
-                                    </Link>
+                                    <>
+                                        <Link
+                                            href={route("login")}
+                                            className={clsx(
+                                                route().current("login")
+                                                    ? "text-slate-900 bg-white"
+                                                    : "text-white",
+                                                "shadow-sm shadow-white/50 rounded-lg py-2 px-4 active:bg-white active:text-slate-950"
+                                            )}
+                                        >
+                                            Login
+                                        </Link>
+                                        <Link
+                                            href={route("register")}
+                                            className={clsx(
+                                                route().current("register")
+                                                    ? "text-slate-900 bg-white"
+                                                    : "text-white",
+                                                "shadow-sm shadow-white/50 rounded-lg py-2 px-4 active:bg-white active:text-slate-950"
+                                            )}
+                                        >
+                                            Register
+                                        </Link>
+                                    </>
                                 ) : (
                                     <Link
                                         href={route("dashboard")}

@@ -7,8 +7,10 @@ use App\Http\Controllers\Admin\FakultasController;
 use App\Http\Controllers\Admin\MahasiswaController;
 use App\Http\Controllers\Admin\ProdiController;
 use App\Http\Controllers\Admin\userController;
+use App\Http\Controllers\DownloadPenerimaKip;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SendAksesLoginController;
 use App\Http\Controllers\SettingOperator;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
@@ -54,6 +56,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('send-akses-login', [SendAksesLoginController::class, 'index'])->name('send-akses-login');
     Route::get('setting-profile', [SettingOperator::class, 'index'])->name('setting-profile');
     Route::patch('setting-profile', [SettingOperator::class, 'update']);
+
+    Route::get('download-mahasiswa-angkatan', [DownloadPenerimaKip::class, 'angkatanDownload'])->name('angkatan_download');
+    Route::get('download-mahasiswa-semua', [DownloadPenerimaKip::class, 'semuaDownload'])->name('semua_download');
+    Route::get('download-mahasiswa-fakultas', [DownloadPenerimaKip::class, 'FakultasDownload'])->name('fakultas_download');
 });
 
 Route::get('downloads/{file}/{fileType}', [DownloadBerkas::class, 'download_berkas'])->name('download_berkas');
@@ -92,3 +98,5 @@ Route::post('upload-data-diri', [DataDiriController::class, 'upload_data_diri'])
 Route::patch('upload-data-diri', [DataDiriController::class, 'update_upload_data_diri'])->name('upload_data_diri');
 Route::post('upload-berkas', [DataDiriController::class, 'upload_berkas'])->name('upload_berkas');
 Route::patch('update_berkas', [DataDiriController::class, 'update_berkas'])->name('update_berkas');
+Route::get('register', [RegisterController::class, 'index'])->name('register');
+Route::post('register', [RegisterController::class, 'store']);
