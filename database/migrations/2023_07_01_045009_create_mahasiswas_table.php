@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             // $table->unsignedBigInteger('prodi_id');
             $table->foreignId('fakultas_id')->references('id')->on('fakultas')->onUpdate('cascade')->onDelete('cascade');
-            $table->string("kode_login")->unique();
+            $table->string("kode_login");
             $table->string('nim')->unique();
             $table->string('nama');
             $table->string('angkatan');
