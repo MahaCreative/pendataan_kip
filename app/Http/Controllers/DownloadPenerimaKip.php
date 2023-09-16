@@ -25,7 +25,7 @@ class DownloadPenerimaKip extends Controller
         }
         $pdfPath = 'pdf/Laporan_penerima_KIP_Fakultas.pdf';
         \Storage::put($pdfPath, $pdf->output());
-        return redirect('storage/pdf/Laporan_penerima_KIP_Fakultas.pdf');
+        return view('pdf_viewer', ['pdfUrl' => 'storage/' . $pdfPath]);
         // return $pdf->download('Laporan_penerima_KIP_FAKULTAS.pdf');
     }
 
