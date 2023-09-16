@@ -69,7 +69,6 @@ Route::middleware(['guest'])->group(function () {
     Route::get('login', [LoginController::class, 'index'])->name('login');
     Route::post('login-admin', [LoginController::class, 'store_admin'])->name('login-admin');
     Route::post('login-user', [LoginController::class, 'store_user'])->name('login-user');
-
 });
 Route::get('logout', function (Request $request) {
 
@@ -83,7 +82,7 @@ Route::get('logout', function (Request $request) {
         return redirect()->route('user.home');
     }
 
-    if($request->session()->get('mahasiswa')){
+    if ($request->session()->get('mahasiswa')) {
         $request->session()->forget('mahasiswa');
         return redirect()->route('user.home');
     }
@@ -100,3 +99,5 @@ Route::post('upload-berkas', [DataDiriController::class, 'upload_berkas'])->name
 Route::patch('update_berkas', [DataDiriController::class, 'update_berkas'])->name('update_berkas');
 Route::get('register', [RegisterController::class, 'index'])->name('register');
 Route::post('register', [RegisterController::class, 'store']);
+
+Route::get('download-laporan', [DownloadPenerimaKip::class, 'pdf'])->name('pdf');

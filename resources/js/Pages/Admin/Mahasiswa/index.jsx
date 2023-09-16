@@ -51,51 +51,15 @@ export default function index({ mahasiswa }) {
     const semuaDownloadHandler = async (e) => {
         e.preventDefault();
         setJenisDownload("semua");
-        try {
-            const response = await fetch(
-                route("semua_download", { angkatan: dataAngkatan })
-            );
-            if (response.ok) {
-                const blob = await response.blob();
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = "Laporan_penerima_KIP_semua.pdf";
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(url);
-            } else {
-                console.error("Gagal mengunduh file PDF");
-            }
-        } catch (error) {
-            console.error("Terjadi kesalahan saat mengunduh file PDF:", error);
-        }
+        window.open(route("semua_download", { angkatan: dataAngkatan }));
     };
     const angkatanDownloadHandler = async (e) => {
         e.preventDefault();
-        try {
-            const response = await fetch(
-                route("angkatan_download", { angkatan: dataAngkatan })
-            );
-            if (response.ok) {
-                const blob = await response.blob();
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = "Laporan_penerima_KIP_Angkatan.pdf";
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(url);
-            } else {
-                console.error("Gagal mengunduh file PDF");
-            }
-        } catch (error) {
-            console.error("Terjadi kesalahan saat mengunduh file PDF:", error);
-        }
+        window.open(route("angkatan_download", { angkatan: dataAngkatan }));
     };
     const fakultasDownloadHandler = (e) => {
         e.preventDefault();
-        router.get(route("fakultas_download"), { fakultas: dataFakultas });
+        window.open(route("fakultas_download"), { fakultas: dataFakultas });
     };
     return (
         <motion.div

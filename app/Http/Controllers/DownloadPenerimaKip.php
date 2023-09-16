@@ -25,7 +25,17 @@ class DownloadPenerimaKip extends Controller
         }
         $pdfPath = 'pdf/Laporan_penerima_KIP_Fakultas.pdf';
         \Storage::put($pdfPath, $pdf->output());
-        return view('pdf_viewer', ['pdfUrl' => 'storage/' . $pdfPath]);
+
+
+        $path = public_path("storage/" . $pdfPath);
+
+        if (file_exists($path)) {
+            $headers = ['Content-Type: application/pdf'];
+            // dd($path);
+            return response()->download($path, 'Laporan_penerima_KIP_FAKULTAS.pdf', $headers);
+        } else {
+            abort(404, 'File not found');
+        }
         // return $pdf->download('Laporan_penerima_KIP_FAKULTAS.pdf');
     }
 
@@ -45,7 +55,19 @@ class DownloadPenerimaKip extends Controller
             $pdf = PDF::loadView('download_pdf', compact('mahasiswa'));
         }
 
-        return $pdf->download('Laporan_penerima_KIP_Angkatan.pdf');
+        $pdfPath = 'pdf/Laporan_penerima_KIP_Angkatan.pdf';
+        \Storage::put($pdfPath, $pdf->output());
+
+
+        $path = public_path("storage/" . $pdfPath);
+
+        if (file_exists($path)) {
+            $headers = ['Content-Type: application/pdf'];
+            // dd($path);
+            return response()->download($path, 'Laporan_penerima_KIP_Angkatan.pdf', $headers);
+        } else {
+            abort(404, 'File not found');
+        }
     }
     public function semuaDownload(Request $request)
     {
@@ -54,6 +76,24 @@ class DownloadPenerimaKip extends Controller
         }])->latest()->get()->toArray();
         $pdf = PDF::loadView('download_pdf', compact('mahasiswa'));
 
-        return $pdf->download('Laporan_penerima_KIP_Semua.pdf');
+        $pdfPath = 'pdf/Laporan_penerima_KIP_Semua.pdf';
+        \Storage::put($pdfPath, $pdf->output());
+
+
+        $path = public_path("storage/" . $pdfPath);
+
+        if (file_exists($path)) {
+            $headers = ['Content-Type: application/pdf'];
+            // dd($path);
+            return response()->download($path, 'Laporan_penerima_KIP_Semua.pdf', $headers);
+        } else {
+            abort(404, 'File not found');
+        }
+    }
+
+    public function pdf(Request $request)
+    {
+
+        return inertia('pdf_viewer', ['pdfUrl' => 'storage/' . $request->url]);
     }
 }
