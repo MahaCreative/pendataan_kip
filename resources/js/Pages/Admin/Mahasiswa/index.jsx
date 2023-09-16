@@ -100,14 +100,17 @@ export default function index({ mahasiswa }) {
                 route("fakultas_download", { fakultas: dataFakultas })
             );
             if (response.ok) {
-                const blob = await response.blob();
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = "Laporan_penerima_KIP_Fakultas.pdf";
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(url);
+                const pdfUrl = await response.text(); // Mendapatkan URL PDF dari server
+
+                if (pdfUrl) {
+                    const a = document.createElement("a");
+                    a.href = pdfUrl;
+                    a.download = "Laporan_penerima_KIP_Fakultas.pdf";
+                    document.body.appendChild(a);
+                    a.click();
+                } else {
+                    console.error("URL PDF tidak valid");
+                }
             } else {
                 console.error("Gagal mengunduh file PDF");
             }
