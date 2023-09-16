@@ -93,30 +93,9 @@ export default function index({ mahasiswa }) {
             console.error("Terjadi kesalahan saat mengunduh file PDF:", error);
         }
     };
-    const fakultasDownloadHandler = async (e) => {
+    const fakultasDownloadHandler = (e) => {
         e.preventDefault();
-        try {
-            const response = await fetch(
-                route("fakultas_download", { fakultas: dataFakultas })
-            );
-            if (response.ok) {
-                const pdfUrl = await response.text(); // Mendapatkan URL PDF dari server
-
-                if (pdfUrl) {
-                    const a = document.createElement("a");
-                    a.href = pdfUrl;
-                    a.download = "Laporan_penerima_KIP_Fakultas.pdf";
-                    document.body.appendChild(a);
-                    a.click();
-                } else {
-                    console.error("URL PDF tidak valid");
-                }
-            } else {
-                console.error("Gagal mengunduh file PDF");
-            }
-        } catch (error) {
-            console.error("Terjadi kesalahan saat mengunduh file PDF:", error);
-        }
+        router.get(route("fakultas_download"), { fakultas: dataFakultas });
     };
     return (
         <motion.div

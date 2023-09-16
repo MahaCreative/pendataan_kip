@@ -23,9 +23,9 @@ class DownloadPenerimaKip extends Controller
             }])->latest()->get()->toArray();
             $pdf = PDF::loadView('download_pdf', compact('mahasiswa'));
         }
-        $pdfPath = 'public/pdf/Laporan_penerima_KIP_Angkatan.pdf';
+        $pdfPath = 'pdf/Laporan_penerima_KIP_Fakultas.pdf';
         \Storage::put($pdfPath, $pdf->output());
-        dd('abg');
+        return redirect('storage/pdf/Laporan_penerima_KIP_Fakultas.pdf');
         // return $pdf->download('Laporan_penerima_KIP_FAKULTAS.pdf');
     }
 
