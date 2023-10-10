@@ -89,7 +89,7 @@ export default function Admin({ children }) {
                                 {children}
                             </div>
                             {/* Footer */}
-                            <div className="fixed bottom-0 left-0 w-full bg-slate-950">
+                            <div className="fixed bottom-0 left-0 w-full bg-slate-950 z-[99999]">
                                 <div className="flex justify-between px-4">
                                     <Link
                                         href={route("dashboard")}

@@ -67,7 +67,7 @@ export default function DataJumlah() {
                 <h3 className="font-mono font-bold text-2xl ">
                     Total Penerima KIP per Fakultas
                 </h3>
-                <div className="grid grid-cols-2 gap-2 ">
+                <div className="grid grid-cols-2 gap-2 max-h-[40vh] overflow-auto">
                     {dataFak.map((item, key) =>
                         dataFak.length % 2 !== 0 ? (
                             <div
@@ -94,7 +94,7 @@ export default function DataJumlah() {
                                     )}
                                 >
                                     <h3 className="text-white font-bold text-4xl">
-                                        {item.jumlah_mahasiswa}
+                                        {item.jumlah_mahasiswa} a aaa
                                     </h3>
                                     <p className="text-white font-bold text-xl text-center">
                                         {item.fakultas}
