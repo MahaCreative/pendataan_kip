@@ -94,7 +94,7 @@ export default function DataJumlah() {
                                     )}
                                 >
                                     <h3 className="text-white font-bold text-4xl">
-                                        {item.jumlah_mahasiswa} a aaa
+                                        {item.jumlah_mahasiswa}
                                     </h3>
                                     <p className="text-white font-bold text-xl text-center">
                                         {item.fakultas}
